@@ -6,6 +6,8 @@ import pygame
 from player import Player
 from constants import *
 
+updatable = pygame.sprite.Group()
+drawable = pygame.sprite.Group()
 
 def main():
     print("Starting Asteroids!")
@@ -19,6 +21,8 @@ def main():
 
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
+    Player.containers = (updatable, drawable)
+
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
     while True:
@@ -28,8 +32,12 @@ def main():
 
         screen.fill("black")
 
-        player.update(dt)
-        player.draw(screen)
+        # player.update(dt)
+        # player.draw(screen)
+        updatable.update(dt)
+
+        for object in drawable:
+            object.draw(screen)
 
         pygame.display.flip()
 
